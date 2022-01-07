@@ -26,7 +26,7 @@ def get_reddit():
     subreddit = reddit.subreddit("UFOs")
     queries = []
     for submission in subreddit.top("hour"):
-        sub_sents = segment_sents(submission.title)
+        sub_sents = segment_sents(submission.title, newlines=False)
         for sub_sent in sub_sents:
             queries.append(sub_sent)
 
