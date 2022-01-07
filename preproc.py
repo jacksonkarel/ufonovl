@@ -15,7 +15,7 @@ class Clean_text:
         with open(self.input_file) as f:
             text = f.read()
         if self.seg_sents is True:
-            text_sents = segment_sents(text, newlines=True)
+            text_sents = segment_sents(text, newlines='')
             proc_text = '\n'.join(text_sents)
         else:
             proc_text = re.sub(self.sub_pattern, self.substitute, text)

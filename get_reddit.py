@@ -24,11 +24,19 @@ def get_reddit():
     )
 
     subreddit = reddit.subreddit("UFOs")
+    corpus = file_to_corpus("data/punct.txt")
     queries = []
     for submission in subreddit.top("hour"):
-        sub_sents = segment_sents(submission.title, newlines=False)
-        for sub_sent in sub_sents:
-            queries.append(sub_sent)
+        texts = [submission.title, submission.selftext]
+        for text in texts:
+            if text == submission.title:
+                newlines = False
+            else:
+                newlines = ' '
+            text_sents = segment_sents(text, newlines)
+            for sentence in text_sents:
+                if sentence not in corpus:
+                    queries.append(sentence)
 
     """
     This is a simple application for sentence embeddings: semantic search
@@ -38,7 +46,6 @@ def get_reddit():
 
     This script outputs for various queries the top 5 most similar sentences in the corpus.
     """
-    corpus = file_to_corpus("punct.txt")
 
     embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
@@ -56,9 +63,7 @@ def get_reddit():
             # Alternatively, we can also use util.semantic_search to perform cosine similarty + topk
             hits = util.semantic_search(query_embedding, corpus_embeddings, top_k=1)
             hit = hits[0][0]
-            # if hit['score'] < .4:
-            #     print(query, "(Score: {:.4f})".format(hit['score']))
-            print(query, "(Score: {:.4f})".format(hit['score']))
+            rating_log = "\n{} (Score: {:.4f})".format(query, hit['score'])
         
         else:
             # We use cosine-similarity and torch.topk to find the highest 5 scores
@@ -68,10 +73,13 @@ def get_reddit():
             # print(top_results[0], top_results[1])
             
             for score, idx in zip(top_results[0], top_results[1]):
-                print(corpus[idx], "(Score: {:.4f})".format(score))
-                # if score < .4:
-                    # print(corpus[idx], "(Score: {:.4f})".format(score))
+                rating_log = "\n{} (Score: {:.4f})".format(query, score)
         
-        with open("punct.txt", 'a') as f:
-            f.write(query)
+        with open("logs/log.txt", 'a') as f:
+            f.write(rating_log)
+
+        if query not in corpus:
+            nl_query = "\n" + query
+            with open("data/punct.txt", 'a') as f:
+                f.write(nl_query)
         
