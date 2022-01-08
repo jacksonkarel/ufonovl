@@ -16,14 +16,15 @@ def file_to_corpus(filename):
 def get_reddit():
     client_id = os.environ.get("REDDIT_ID")
     client_secret = os.environ.get("REDDIT_SEC")
+    user_agent = os.environ.get("REDDIT_U_AGENT")
 
     reddit = praw.Reddit(
         client_id=client_id,
         client_secret=client_secret,
-        user_agent="macintosh:com.example.ufocompanies:v1.0.0 (by u/boo_hooray)",
+        user_agent=user_agent,
     )
-
-    subreddit = reddit.subreddit("UFOs")
+    sub_names = "UFOs+aliens+HighStrangeness+ufo"
+    subreddit = reddit.subreddit(sub_names)
     corpus = file_to_corpus("data/punct.txt")
     queries = []
     for submission in subreddit.top("hour"):
@@ -82,4 +83,4 @@ def get_reddit():
             nl_query = "\n" + query
             with open("data/punct.txt", 'a') as f:
                 f.write(nl_query)
-        
+    
