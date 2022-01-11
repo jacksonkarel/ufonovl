@@ -1,9 +1,9 @@
 from apscheduler.schedulers.background import BlockingScheduler
 
-from mine_reddit import get_reddit
+from mine_reddit import mine_reddit_hour
 
-get_reddit()
+mine_reddit_hour()
 
 scheduler = BlockingScheduler()
-job = scheduler.add_job(get_reddit, 'interval', hours=1)
+job = scheduler.add_job(mine_reddit_hour, 'interval', hours=1)
 scheduler.start()
