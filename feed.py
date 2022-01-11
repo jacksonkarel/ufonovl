@@ -1,6 +1,6 @@
 from apscheduler.schedulers.background import BlockingScheduler
 
-from get_reddit import get_reddit
+from mine_reddit import get_reddit
 
 get_reddit()
 
