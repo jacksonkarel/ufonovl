@@ -5,15 +5,11 @@ import praw
 from punctuation import segment_sents
 from detect_novelty import detect_novelty
 
-
 def file_to_corpus(filename):
     with open(filename) as f:
         punct_text = f.read()
     corpus = punct_text.split("\n")
     return corpus
-
-def reddit_hour(subreddit):
-    return subreddit.top("hour")
 
 def mine_reddit(reddit_query):
     client_id = os.environ.get("REDDIT_ID")
