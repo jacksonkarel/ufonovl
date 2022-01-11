@@ -12,7 +12,10 @@ def file_to_corpus(filename):
     corpus = punct_text.split("\n")
     return corpus
 
-def ufo_subreddits():
+def reddit_hour(subreddit):
+    return subreddit.top("hour")
+
+def mine_reddit(reddit_query):
     client_id = os.environ.get("REDDIT_ID")
     client_secret = os.environ.get("REDDIT_SEC")
     user_agent = os.environ.get("REDDIT_U_AGENT")
@@ -24,13 +27,10 @@ def ufo_subreddits():
     )
     sub_names = "UFOs+aliens+HighStrangeness+ufo"
     subreddit = reddit.subreddit(sub_names)
-    return subreddit
-
-def mine_reddit_hour():
-    subreddit = ufo_subreddits()
     corpus = file_to_corpus("data/punct.txt")
     queries = []
-    for submission in subreddit.top("hour"):
+    spec_r_q = reddit_query(subreddit)
+    for submission in spec_r_q:
         texts = [submission.title, submission.selftext]
         for text in texts:
             if text == submission.title:
