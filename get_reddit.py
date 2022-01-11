@@ -40,6 +40,8 @@ def get_reddit():
                     queries.append(sentence)
 
     """
+    Modified from https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/semantic-search/semantic_search.py
+    
     This is a simple application for sentence embeddings: semantic search
 
     We have a corpus with various sentences. Then, for a given query sentence,
