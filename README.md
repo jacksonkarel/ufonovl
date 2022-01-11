@@ -1,2 +1,4 @@
 # ufo-text-novelty
-Building an NLP pipeline to detect new textual information about UFOs/UAPs
+An NLP pipeline to detect new textual information about UFOs/UAPs
+
+Can be modified for any domain.
