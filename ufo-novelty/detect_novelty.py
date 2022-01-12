@@ -18,10 +18,6 @@ def detect_novelty(corpus, queries):
 
     corpus_embeddings = embedder.encode(corpus, convert_to_tensor=True)
 
-    # Query sentences:
-    # queries = ['A man is eating pasta.', 'Someone in a gorilla costume is playing a set of drums.', 'A cheetah chases prey on across a field.']
-    # queries = ['A man is eating pasta.']
-
     # Find the closest 5 sentences of the corpus for each query sentence based on cosine similarity
     top_k = min(1, len(corpus))
     for query in queries:
@@ -36,16 +32,9 @@ def detect_novelty(corpus, queries):
             # We use cosine-similarity and torch.topk to find the highest 5 scores
             cos_scores = util.pytorch_cos_sim(query_embedding, corpus_embeddings)[0]
             top_results = torch.topk(cos_scores, k=top_k)
-
-            # print(top_results[0], top_results[1])
             
             for score, idx in zip(top_results[0], top_results[1]):
                 rating_log = "\n{} (Score: {:.4f})".format(query, score)
         
         with open("logs/log.txt", 'a') as f:
             f.write(rating_log)
-
-        if query not in corpus:
-            nl_query = "\n" + query
-            with open("data/punct.txt", 'a') as f:
-                f.write(nl_query)
