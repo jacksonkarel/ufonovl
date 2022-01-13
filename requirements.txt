@@ -1,6 +1,8 @@
 APScheduler==3.8.1
 praw==7.5.0
+psaw==0.1.0
 sentence_transformers==2.1.0
+setuptools==60.3.1
 spacy==3.2.1
 torch==1.10.1
 en-core-web-lg @ https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.2.0/en_core_web_lg-3.2.0-py3-none-any.whl
