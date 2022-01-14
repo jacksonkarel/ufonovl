@@ -2,9 +2,9 @@ import os
 
 import praw
 
-from punctuation import segment_sents
-from detect_novelty import detect_novelty
-from corpus import pcftc
+from ufonovl.punctuation import segment_sents
+from ufonovl.detect_novelty import detect_novelty
+from ufonovl.corpus import pcftc
 
 def mine_reddit(reddit_query):
     client_id = os.environ.get("REDDIT_ID")

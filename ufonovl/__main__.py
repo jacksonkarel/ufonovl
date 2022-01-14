@@ -1,4 +1,4 @@
-from cli_parser import cli_parser
+from ufonovl.cli_parser import cli_parser
 
 def main():    
     cli_parser()

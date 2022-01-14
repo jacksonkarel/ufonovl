@@ -1,6 +1,6 @@
 import argparse
-from reddit.feed import new_reddit_posts
-from reddit.history import reddit_history
+from ufonovl.reddit.feed import new_reddit_posts
+from ufonovl.reddit.history import reddit_history
 
 def cli_parser():
     utn_parser = argparse.ArgumentParser(description='An NLP pipeline that detects new textual information about UFOs/UAPs')

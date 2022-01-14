@@ -1,6 +1,6 @@
 import re
 
-from punctuation import segment_sents
+from ufonovl.punctuation import segment_sents
 
 
 class Clean_text:

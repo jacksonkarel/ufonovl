@@ -1,6 +1,6 @@
 from apscheduler.schedulers.background import BlockingScheduler
 
-from mine import mine_reddit
+from ufonovl.reddit.mine import mine_reddit
 
 def reddit_hour(subreddit):
     return subreddit.top("hour")

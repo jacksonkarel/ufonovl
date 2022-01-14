@@ -3,7 +3,7 @@ import datetime as dt
 from psaw import PushshiftAPI
 import praw
 
-from mine import reddit_subs_dn
+from ufonovl.reddit.mine import reddit_subs_dn
 
 def reddit_history():
     api = PushshiftAPI()
