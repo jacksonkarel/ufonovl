@@ -5,7 +5,7 @@ from ufonovl.reddit.history import reddit_history
 def cli_parser():
     utn_parser = argparse.ArgumentParser(description='An NLP pipeline that detects new textual information about UFOs/UAPs')
 
-    utn_parser.add_argument('interval', action='store', choices=['new', 'old'])
+    utn_parser.add_argument('interval', action='store', choices=['new', 'old'], help="Process new reddit posts or old ones")
 
     args = utn_parser.parse_args()
 
