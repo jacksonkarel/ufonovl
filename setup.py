@@ -7,7 +7,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="ufonovl",
-    version="1.0.0",
+    version="0.1.0",
     description="An NLP pipeline that detects new textual information about UFOs/UAPs",
     long_description=README,
     long_description_content_type="text/markdown",
