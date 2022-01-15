@@ -27,6 +27,7 @@ def mine_reddit(reddit_query):
 
 def reddit_subs_dn(submissions):
     queries = []
+    pcftc = punct_file_corpus()
     for submission in submissions:
         texts = [submission.title, submission.selftext]
         for text in texts:
@@ -36,7 +37,6 @@ def reddit_subs_dn(submissions):
                 newlines = ' '
             text_sents = segment_sents(text, newlines)
             for sentence in text_sents:
-                pcftc = punct_file_corpus()
                 if sentence not in pcftc:
                     queries.append(sentence)
                     nl_query = "\n" + sentence
