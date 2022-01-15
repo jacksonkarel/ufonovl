@@ -8,5 +8,7 @@ class Corpus:
         corpus = punct_text.split("\n")
         return corpus
 
-punct_corpus = Corpus("data/punct.txt")
-pcftc = punct_corpus.file_to_corpus()
+def punct_file_corpus():
+    punct_corpus = Corpus("data/punct.txt")
+    pcftc = punct_corpus.file_to_corpus()
+    return pcftc
