@@ -26,5 +26,3 @@ class Clean_text:
 clean_youtube_auto = Clean_text("unpunct.txt", "unpunct_clean.txt", "(\n| )\[.*?\](\n| )", " ", False)
 clean_toe = Clean_text("unpunct_toe.txt", "unpunct_toe_clean.txt", "(CJ|LE)( |-|:)*", "", False)
 seg_toe = Clean_text("unpunct_toe_clean.txt", "punct_test.txt", None, None, True)
-
-# seg_toe.txt_write()

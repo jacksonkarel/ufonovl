@@ -3,16 +3,14 @@ import torch
 
 def detect_novelty(corpus, queries):
 
-    """
-    Modified from https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/semantic-search/semantic_search.py
+    # Modified from https://github.com/UKPLab/sentence-transformers/blob/master/examples/applications/semantic-search/semantic_search.py
     
-    This is a simple application for sentence embeddings: semantic search
+    # This is a simple application for sentence embeddings: semantic search
 
-    We have a corpus with various sentences. Then, for a given query sentence,
-    we want to find the most similar sentence in this corpus.
+    # We have a corpus with various sentences. Then, for a given query sentence,
+    # we want to find the most similar sentence in this corpus.
 
-    This script outputs for various queries the top 5 most similar sentences in the corpus.
-    """
+    # This script outputs for various queries the top 5 most similar sentences in the corpus.
 
     embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
