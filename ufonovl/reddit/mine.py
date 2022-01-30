@@ -18,9 +18,8 @@ def reddit_api():
     )
     return reddit
 
-def mine_reddit(reddit_query):
+def mine_reddit(reddit_query, sub_names):
     reddit = reddit_api()
-    sub_names = "UFOs+aliens+HighStrangeness+ufo"
     subreddit = reddit.subreddit(sub_names)
     spec_r_q = reddit_query(subreddit)
     reddit_subs_dn(spec_r_q)
