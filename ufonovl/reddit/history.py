@@ -1,23 +1,22 @@
 from psaw import PushshiftAPI
+import jsonlines
+from tqdm import tqdm
 
-from ufonovl.reddit.mine import reddit_subs_dn
+from ufonovl.reddit.subreddits import subreddits
 
-def reddit_history(subreddit, start_time):
-    # UFOs subreddit created Mon Mar 10 2008 PDT (1205211399)
-    # aliens subreddit created 1217838855
-    # HighStrangeness subreddit created 1238686810
-    epochs = [start_time]
-    for ep in epochs:
-        p_shift_api = PushshiftAPI()
+def posts_to_json(posts):
+    for post in tqdm(posts):
+        post.d_.pop("created")
+        with jsonlines.open("data/ufos_reddit.jsonl", mode='a') as writer:
+            writer.write(post.d_)
 
-        submissions = list(p_shift_api.search_submissions(after=ep,
-                                    sort='asc',
-                                    subreddit=subreddit,
-                                    filter=['title', 'selftext', 'id'],
-                                    limit=100))
-        reddit_subs_dn(submissions)
-        last_sub_created = submissions[-1].created_utc
-        lsc_str = str(last_sub_created)
-        with open("logs/time.txt", 'w') as f:
-            f.write(lsc_str)
-        epochs.append(last_sub_created)
+def reddit_history():
+    p_shift_api = PushshiftAPI()
+    for subreddit in tqdm(subreddits):
+        # submissions = list(p_shift_api.search_submissions(sort='asc',
+        #                             subreddit=subreddit,
+        #                             filter=['title', 'selftext', 'subreddit']))
+        # posts_to_json(submissions)
+        
+        comments_gen = p_shift_api.search_comments(sort='asc', subreddit=subreddit, filter=['body', 'subreddit'])
+        posts_to_json(comments_gen)

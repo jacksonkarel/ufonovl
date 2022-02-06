@@ -22,25 +22,37 @@ def mine_reddit(reddit_query, sub_names):
     reddit = reddit_api()
     subreddit = reddit.subreddit(sub_names)
     spec_r_q = reddit_query(subreddit)
-    reddit_subs_dn(spec_r_q)
+    r_add_punct(spec_r_q, r_api_subm_seg)
 
-def reddit_subs_dn(submissions):
-    queries = []
+def r_subm_segment(sub_title, selftext):
+    title_sents = segment_sents(sub_title)
+    stext_sents = segment_sents(selftext, ' ')
+    text_sents = title_sents + stext_sents
+    return text_sents
+
+def r_api_subm_seg(submission):
+    text_sents = r_subm_segment(submission.title, submission.selftext)
+    return text_sents
+
+def r_json_subm_seg(submission):
+    text_sents = r_subm_segment(submission["title"], submission["selftext"])
+    return text_sents
+
+def r_add_punct(posts, source_seg, dn=False):
+    if dn:
+        queries = []
     pcftc = punct_file_corpus()
-    for submission in submissions:
-        texts = [submission.title, submission.selftext]
-        for text in texts:
-            if text == submission.title:
-                newlines = False
-            else:
-                newlines = ' '
-            text_sents = segment_sents(text, newlines)
-            for sentence in text_sents:
-                if sentence not in pcftc:
+    for r_post in posts:
+        text_sents = source_seg(r_post)
+        for sentence in text_sents:
+            if sentence not in pcftc:
+                
+                if dn:
                     queries.append(sentence)
-                    nl_query = "\n" + sentence
-                    with open("data/punct.txt", 'a') as f:
-                        f.write(nl_query)
+
+                nl_query = "\n" + sentence
+                with open("data/punct.txt", 'a') as f:
+                    f.write(nl_query) 
     
     detect_novelty(pcftc, queries)
     

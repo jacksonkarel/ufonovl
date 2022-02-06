@@ -1,7 +1,7 @@
 import spacy
 import re
 
-def segment_sents(text, newlines):
+def segment_sents(text, newlines=False):
     nlp = spacy.load("en_core_web_lg", exclude=["ner", "parser", "tagger", "lemmatizer"])
     nlp.enable_pipe("senter")
     doc = nlp(text)
