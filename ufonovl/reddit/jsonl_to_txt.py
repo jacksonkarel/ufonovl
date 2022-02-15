@@ -1,5 +1,4 @@
 import jsonlines
-import tqdm
 
 from ufonovl.reddit.mine import r_add_punct
 

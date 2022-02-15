@@ -67,7 +67,7 @@ def r_add_punct(posts, post_fields, post_attrs=False):
         nfsc_sents = []
         pcftc = punct_file_corpus()
         for sent in tqdm(pcftc):
-            if re.search(".|!|?", sent) is False:
+            if re.search("\.|!|\?", sent) is False:
                 nfsc_sents.append(sent)
         first_cl_posts = list_diff(ext_posts, nfsc_sents)
 

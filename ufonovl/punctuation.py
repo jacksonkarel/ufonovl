@@ -2,7 +2,7 @@ import re
 
 import spacy
 from spacy.lang.en import English
-import tqdm
+from tqdm import tqdm
 
 def segment_sents(*args, newlines=False):
     nlp.enable_pipe("senter")
