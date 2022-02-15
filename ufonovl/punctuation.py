@@ -1,17 +1,34 @@
-import spacy
 import re
 
-def segment_sents(text, newlines=False):
-    nlp = spacy.load("en_core_web_lg", exclude=["ner", "parser", "tagger", "lemmatizer"])
+import spacy
+from spacy.lang.en import English
+import tqdm
+
+def segment_sents(*args, newlines=False):
     nlp.enable_pipe("senter")
-    doc = nlp(text)
+    nlp = spacy.load("en_core_web_lg", exclude=["ner", "parser", "tagger", "lemmatizer"])
     text_sents = []
-    for sent in doc.sents:
-        if newlines:
-            sent_text = sent.text.replace('\n', newlines)
-        else:
-            sent_text = sent.text
-        sent_text = re.sub("^ ", "", sent_text)
-        text_sents.append(sent_text)
+    for txt in args: 
+        doc = nlp(txt)
+        for sent in doc.sents:
+            if newlines:
+                sent_text = sent.text.replace('\n', newlines)
+            else:
+                sent_text = sent.text
+            sent_text = re.sub("^ ", "", sent_text)
+            text_sents.append(sent_text)
         
     return text_sents
+
+def segment_sents_fast(texts):
+    nlp = English()
+    nlp.add_pipe("sentencizer")
+    text_sents = []
+    for doc in tqdm(nlp.pipe(texts)):
+        for sent in doc.sents:
+            sent_text = sent.text
+            sent_text = re.sub("^ ", "", sent_text)
+            text_sents.append(sent_text)
+    return text_sents
+            
+        

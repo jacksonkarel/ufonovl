@@ -1,9 +1,10 @@
 import jsonlines
+import tqdm
 
-from ufonovl.reddit.mine import r_add_punct, r_json_subm_seg
+from ufonovl.reddit.mine import r_add_punct
 
 def jsonl_to_txt():
     with jsonlines.open('data/ufos_reddit_submissions.jsonl') as reader:
-        r_add_punct(reader, r_json_subm_seg)
-
-            
+        submissions = list(reader)
+    subm_fields = ["title", "selftext"]
+    r_add_punct(submissions, subm_fields)
